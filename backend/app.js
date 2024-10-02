@@ -13,7 +13,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const ApiFteature = require("./utils/feature.js");
 const cookieParser = require("cookie-parser");
 require('dotenv').config();
-const path=require("path");
+
 
 const User = require("./module/user.js");
 const userRoutes = require("./routes/userRoutes.js");
@@ -61,7 +61,7 @@ app.use(express.urlencoded({ limit: "500mb", extended: true }));
 async function main() {
   
   try {
-    await mongoose.connect(process.env.MONGO_URL, {
+    await mongoose.connect('mongodb://localhost:27017/Ecommerce', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -79,10 +79,7 @@ main();
 app.use("/api/users", userRoutes);
 app.use("/api/users", orderRoutes);
 app.use("/api/users",paymentRoutes);
-//  app.use(express.static(path.join(__dirname,"../frame/basic-react-app")));
-// app.get("*",(req,res,next)=>{
-//  res.sendFile(path.resolve(__dirname,"../frame/basic-react-app/index.html"))
-// })
+
 
 //create product  admin
 
@@ -184,6 +181,8 @@ app.put(
     
     }
 
+
+
  // Images Start Here
  let images = [];
 
@@ -249,6 +248,11 @@ try{
 for (let i = 0; i < product.images.length; i++) {
   await cloudinary.v2.uploader.destroy(product.images[i].public_id);
 }
+
+
+
+
+
 
 
     await product.deleteOne();
@@ -347,6 +351,22 @@ app.put("/api/review",isAuthenticated, wrapAsync(async(req,res,next)=>{
     });
     }));
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // express error
 // Express error

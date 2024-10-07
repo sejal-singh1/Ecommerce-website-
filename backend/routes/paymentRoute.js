@@ -10,7 +10,8 @@ router.post("/payment/process",isAuthenticated,wrapAsync(async(req,res,next)=>{
     const myPayment=await stripe.paymentIntents.create({
         amount:req.body.amount,
         currency:"inr",
-        
+        metadata: {
+          company: "Ecommerce", }
         
 
     });

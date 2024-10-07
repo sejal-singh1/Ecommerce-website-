@@ -118,14 +118,25 @@ res.status(200).json({
     }));
     //login user only access
     router.get("/me",isAuthenticated,wrapAsync(async(req,res,next)=>{
+        try{
+        console.log("User ID from request:", req.user._id);  // Log user ID
 const user=await User.findById(req.user._id);
 if (!user) {
+    console.log("User not found",user);
     return next(new ExpressError("User not found is id", 404));
 }
     res.status(200).json({
         success:true,
         user,
     });
+}catch (error) {
+    console.error("Error fetching user:", error.stack||error); // Log the error
+    res.status(500).json({
+        success: false,
+        message: "Server error occurred",
+        error: error.message || "Unknown error",
+});
+}
     }));
     //change password
     router.put("/password/update",isAuthenticated,wrapAsync(async(req,res,next)=>{

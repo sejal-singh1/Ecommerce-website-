@@ -17,11 +17,11 @@ const Footer=()=>{
                 <h1>Let's Shop</h1>
                 <p>High Quality is our first priority</p>
 
-                <p>Copyrights 2024 & copy;SejalSingh</p>
+                <p>Designed by Sejal Singh</p>
             </div>
             <div className="rightFooter">
                 <h4>Follow Us</h4>
-                <a href="http://instagram.com/singh_sejal.21">Instagram</a>
+                <a href="http://github.com/sejal_singh1">github</a>
                 <a href="http://linkedin.com/sejalSingh">Linkedin</a>
             </div>
         </footer>

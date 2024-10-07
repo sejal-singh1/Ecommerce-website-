@@ -50,6 +50,9 @@ const Payment=()=> {
     shippingPrice: orderInfo.shippingCharges,
     totalPrice: orderInfo.totalPrice,
   };
+
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -119,6 +122,7 @@ const Payment=()=> {
   };
 
   useEffect(() => {
+    
     if (error) {
       alert.error(error);
       dispatch(clearErrors());

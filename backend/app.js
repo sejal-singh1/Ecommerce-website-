@@ -1,8 +1,5 @@
 const express = require("express");
 const app = express();
-
-
-
 const port=process.env.PORT||3000;
 const cors=require("cors");
 const corsOptions={
@@ -16,16 +13,14 @@ const ExpressError = require("./utils/ExpressError.js");
 const ApiFteature = require("./utils/feature.js");
 const cookieParser = require("cookie-parser");
 require('dotenv').config();
-
-
 const User = require("./module/user.js");
 const userRoutes = require("./routes/userRoutes.js");
 const orderRoutes = require("./routes/orderRoutes.js");
 const paymentRoutes =require("./routes/paymentRoute.js");
 const Order=require("./module/ordermodel.js");
 const cloudinary=require("cloudinary");
-
 const { isAuthenticated, authorizeRoles } = require("./middleware/authen.js");
+const Path =require("path");
 
 //handling uncaught expection
 
@@ -70,7 +65,7 @@ async function main() {
     });
     console.log("connected to DB");
   } catch (error) {
-    console.error("Error connecting to the database:", error);
+    console.error("Error connecting to the database:", error.message);
     process.exit(1); // Exit with failure code
   }
 }
@@ -83,6 +78,12 @@ app.use("/api/users", userRoutes);
 app.use("/api/users", orderRoutes);
 app.use("/api/users",paymentRoutes);
 
+
+app.use(express.static(Path.join(__dirname,"../frame/basic-react-app/dist")));
+app.get("*",(req,res)=>{
+  res.sendFile(Path.resolve(__dirname,"../frame/basic-react-app/dist/index.html"))
+
+})
 
 //create product  admin
 
